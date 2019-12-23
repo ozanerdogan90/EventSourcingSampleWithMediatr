@@ -1,0 +1,1 @@
+dotnet test ../tests/EventSourcingSampleWithCQRSandMediatr.Tests/EventSourcingSampleWithCQRSandMediatr.Tests.csproj
