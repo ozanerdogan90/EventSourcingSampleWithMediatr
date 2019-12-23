@@ -16,7 +16,6 @@ namespace EventSourcingSampleWithCQRSandMediatr
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddCorrelationIdServices()
-                       .AddAutoMapperServices()
                        .AddSwaggerServices()
                        .AddResponseCompression()
                        .AddProblemDetailServices();
@@ -36,17 +35,6 @@ namespace EventSourcingSampleWithCQRSandMediatr
             return services;
         }
 
-        private static IServiceCollection AddAutoMapperServices(this IServiceCollection services)
-        {
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new AutoMapperProfile());
-            });
-
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
-            return services;
-        }
         private static IServiceCollection AddSwaggerServices(this IServiceCollection services)
         {
             return services.AddSwaggerGen(c =>

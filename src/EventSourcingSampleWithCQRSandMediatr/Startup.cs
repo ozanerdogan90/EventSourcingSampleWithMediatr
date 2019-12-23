@@ -1,11 +1,8 @@
-using EventSourcingSampleWithCQRSandMediatr.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using EventSourcingSampleWithCQRSandMediatr.DataAccess;
 using EventSourcingSampleWithCQRSandMediatr.Filters;
-using EventSourcingSampleWithCQRSandMediatr.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Hosting;
@@ -20,24 +17,10 @@ namespace EventSourcingSampleWithCQRSandMediatr
         }
 
         public IConfiguration Configuration { get; }
-        private DatabaseConfiguration DbConfig
-        {
-            get
-            {
-                return new DatabaseConfiguration()
-                {
-                    ApplicationName = Configuration.GetValue("Db:ApplicationName", "EventSourcingSample"),
-                    ConnectionString = Configuration.GetValue("Db:ConnectionString", string.Empty),
-                    UseMemoryDb = Configuration.GetValue("Db:UseMemoryDb", true),
-                };
-            }
-        }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddBusinessServices()
-                    .AddRepositories(DbConfig)
-                    .AddApplicationServices();
+            services.AddApplicationServices();
 
             services.AddControllers(options =>
             {
@@ -57,7 +40,6 @@ namespace EventSourcingSampleWithCQRSandMediatr
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.ConfigureEF(DbConfig);
             app.ConfigureApplicationServices();
             app.UseRouting();
             app.UseAuthentication();

@@ -32,7 +32,7 @@ namespace EventSourcingSampleWithCQRSandMediatr.Filters
             {
                 { "CorrelationId", correlationId},
                 { "ErrorMessage",  isDev? exception.Demystify().ToString() : exception.Message},
-                {"ErrorTrace",  isDev ? exception.StackTrace : string.Empty },
+                { "ErrorTrace",  isDev ? exception.StackTrace : string.Empty },
             };
             logger.LogError(exception, exception.Message, correlationId);
 
