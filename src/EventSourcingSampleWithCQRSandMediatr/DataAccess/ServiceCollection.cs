@@ -22,8 +22,8 @@ namespace EventSourcingSampleWithCQRSandMediatr.DataAccess
         {
             if (config.UseMemoryDb)
             {
-                services.AddDbContext<Context>(options =>
-                options.UseInMemoryDatabase(config.ApplicationName));
+                //services.AddDbContext<Context>(options =>
+                //options.UseInMemoryDatabase(config.ApplicationName));
             }
             else
             {
