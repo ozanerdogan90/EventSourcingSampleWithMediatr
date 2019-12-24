@@ -7,7 +7,9 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.ValueObjects
     public class Statistics
     {
         public string Type { get; set; }
-        public string Value { get; set; }
+        public TeamType Team { get; set; }
+        public string ActionBy { get; set; }
+        public DateTime ActionAt { get; set; }
     }
 
     public class GameDetails

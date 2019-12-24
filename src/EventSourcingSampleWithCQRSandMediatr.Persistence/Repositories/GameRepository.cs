@@ -12,12 +12,14 @@ namespace EventSourcingSampleWithCQRSandMediatr.Persistence.Repositories
     {
         Task<bool> CreateGame(Game game);
         Task<bool> EndGame(Guid id);
+        Task<bool> StartGame(Guid id);
         Task<bool> AddScore(Score score);
         Task<IReadOnlyList<Score>> GetScores(Guid gameId);
         Task<IReadOnlyList<Card>> GetCards(Guid gameId);
         Task<bool> AddCard(Card card);
         Task<IReadOnlyList<Faul>> GetFauls(Guid gameId);
         Task<bool> AddFaul(Faul faul);
+        Task<bool> DoesGameExist(Guid id);
     }
 
     public class GameRepository : IGameRepository
@@ -82,6 +84,23 @@ namespace EventSourcingSampleWithCQRSandMediatr.Persistence.Repositories
         public async Task<IReadOnlyList<Card>> GetCards(Guid gameId)
         {
             return await context.Cards.Where(x => x.GameId == gameId).ToListAsync();
+        }
+
+        public async Task<bool> StartGame(Guid id)
+        {
+            var game = await context.Games.FirstOrDefaultAsync(x => x.Id == id);
+            if (game == null)
+                throw new ArgumentNullException(nameof(game));
+
+            game.StartedAt = DateTime.UtcNow;
+            context.Update(game);
+            var result = await context.SaveChangesAsync();
+            return result > 0;
+        }
+
+        public Task<bool> DoesGameExist(Guid id)
+        {
+            return context.Games.AnyAsync(x => x.Id == id);
         }
     }
 }

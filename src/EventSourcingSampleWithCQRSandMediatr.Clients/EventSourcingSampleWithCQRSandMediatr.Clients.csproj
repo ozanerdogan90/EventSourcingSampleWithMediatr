@@ -4,11 +4,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Handlers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\EventSourcingSampleWithCQRSandMediatr.Contracts\EventSourcingSampleWithCQRSandMediatr.Contracts.csproj" />
     <ProjectReference Include="..\EventSourcingSampleWithCQRSandMediatr.Domain\EventSourcingSampleWithCQRSandMediatr.Domain.csproj" />
+    <ProjectReference Include="..\EventSourcingSampleWithCQRSandMediatr.Persistence\EventSourcingSampleWithCQRSandMediatr.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
