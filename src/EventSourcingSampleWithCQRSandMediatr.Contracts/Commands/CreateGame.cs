@@ -12,6 +12,10 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
         public Team AwayTeam { get; set; }
         public string StadiumName { get; set; }
         public List<Referee> Referees { get; set; }
+        public CreateGame()
+        {
+                
+        }
 
         public CreateGame(Guid id, Team homeTeam, Team awayTeam, List<Referee> referees)
         {

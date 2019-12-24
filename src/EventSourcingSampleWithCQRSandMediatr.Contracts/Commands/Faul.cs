@@ -10,6 +10,10 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
         public TeamType Team { get; set; }
         public int PlayerNumber { get; set; }
         public DateTime FaulAt { get; set; } = DateTime.UtcNow;
+        public Faul()
+        {
+
+        }
         public Faul(Guid gameId, TeamType teamType, int playerNumber)
         {
             GameId = gameId;

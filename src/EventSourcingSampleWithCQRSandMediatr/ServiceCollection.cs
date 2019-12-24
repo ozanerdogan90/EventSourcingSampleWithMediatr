@@ -8,6 +8,7 @@ using System.IO;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Prometheus;
+using MediatR;
 
 namespace EventSourcingSampleWithCQRSandMediatr
 {
@@ -18,10 +19,19 @@ namespace EventSourcingSampleWithCQRSandMediatr
             services.AddCorrelationIdServices()
                        .AddSwaggerServices()
                        .AddResponseCompression()
+                       .AddMediatr()
                        .AddProblemDetailServices();
 
             return services;
         }
+
+        private static IServiceCollection AddMediatr(this IServiceCollection services)
+        {
+            services.AddScoped<IMediator, Mediator>();
+            services.AddTransient<ServiceFactory>(sp => t => sp.GetService(t));
+            return services;
+        }
+
 
         private static IServiceCollection AddCorrelationIdServices(this IServiceCollection services)
         {

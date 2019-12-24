@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace EventSourcingSampleWithCQRSandMediatr.Controllers
 {
     [ApiController]
+    [Route("games")]
     public class GameController : ControllerBase
     {
         private readonly ICommandBus commandBus;
@@ -76,7 +77,7 @@ namespace EventSourcingSampleWithCQRSandMediatr.Controllers
         }
 
         [HttpGet]
-        [Route("{id}/game-details")]
+        [Route("{id}/details")]
         public async Task<IActionResult> GetStatistics([BindRequired, FromQuery]Guid id)
         {
             var results = await this.queryBus.Send<GetDetailedGame, GameDetails>(new GetDetailedGame(id));

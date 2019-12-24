@@ -35,8 +35,10 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\EventSourcingSampleWithCQRSandMediatr.Clients\EventSourcingSampleWithCQRSandMediatr.Clients.csproj" />
     <ProjectReference Include="..\EventSourcingSampleWithCQRSandMediatr.Contracts\EventSourcingSampleWithCQRSandMediatr.Contracts.csproj" />
     <ProjectReference Include="..\EventSourcingSampleWithCQRSandMediatr.Domain\EventSourcingSampleWithCQRSandMediatr.Domain.csproj" />
+    <ProjectReference Include="..\EventSourcingSampleWithCQRSandMediatr.Persistence\EventSourcingSampleWithCQRSandMediatr.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

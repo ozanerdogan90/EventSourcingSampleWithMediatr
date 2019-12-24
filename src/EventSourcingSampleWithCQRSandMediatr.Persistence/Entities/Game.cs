@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventSourcingSampleWithCQRSandMediatr.Persistence.Entities
 {
     public class Game
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public Guid HomeTeamId { get; set; }
         public Guid AwayTeamId { get; set; }

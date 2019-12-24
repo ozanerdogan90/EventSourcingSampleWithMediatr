@@ -7,6 +7,10 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
     {
         public Guid GameId { get; set; }
         public DateTime EndedAt { get; set; } = DateTime.UtcNow;
+        public EndGame()
+        {
+
+        }
 
         public EndGame(Guid gameId)
         {

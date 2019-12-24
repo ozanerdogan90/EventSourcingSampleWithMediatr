@@ -1,6 +1,6 @@
 ﻿using EventSourcingSampleWithCQRSandMediatr.Persistence.DataAccess;
 using EventSourcingSampleWithCQRSandMediatr.Persistence.Entities;
-using Marten;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -15,7 +15,15 @@ namespace EventSourcingSampleWithCQRSandMediatr.Persistence.DataAccess
         public Context(DbContextOptions<Context> options)
             : base(options)
         {
+
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Card>().HasNoKey().HasIndex(x => x.GameId);
+            builder.Entity<Score>().HasNoKey().HasIndex(x => x.GameId);
+            builder.Entity<Faul>().HasNoKey().HasIndex(x => x.GameId);
+            builder.Entity<Game>().HasIndex(x => x.Id);
+        }
     }
 }

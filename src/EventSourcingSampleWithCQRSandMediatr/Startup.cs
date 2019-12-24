@@ -6,6 +6,9 @@ using EventSourcingSampleWithCQRSandMediatr.Filters;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Hosting;
+using EventSourcingSampleWithCQRSandMediatr.Persistence.Models;
+using EventSourcingSampleWithCQRSandMediatr.Persistence;
+using EventSourcingSampleWithCQRSandMediatr.Clients;
 
 namespace EventSourcingSampleWithCQRSandMediatr
 {
@@ -17,17 +20,27 @@ namespace EventSourcingSampleWithCQRSandMediatr
         }
 
         public IConfiguration Configuration { get; }
+        private DatabaseConfiguration DbConfig
+        {
+            get
+            {
+                return new DatabaseConfiguration()
+                {
+                    ApplicationName = Configuration.GetValue("Db:ApplicationName", "MyApp"),
+                    ConnectionString = Configuration.GetValue("Db:ConnectionString", string.Empty),
+                    UseMemoryDb = Configuration.GetValue("Db:UseMemoryDb", true)
+                };
+            }
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplicationServices();
+            services.AddApplicationServices()
+                    .AddPersistenceServices(DbConfig)
+                    .AddCQRSServices();
 
             services.AddControllers(options =>
             {
-                var policy = new AuthorizationPolicyBuilder()
-                   .RequireAuthenticatedUser()
-                   .Build();
-                options.Filters.Add(new AuthorizeFilter(policy));
                 options.Filters.Add(new ApiLoggingFilter());
                 options.Filters.Add(typeof(CustomExceptionFilter));
             });
@@ -42,8 +55,7 @@ namespace EventSourcingSampleWithCQRSandMediatr
             }
             app.ConfigureApplicationServices();
             app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.ConfigureEF(DbConfig);
 
             app.UseEndpoints(endpoints =>
             {

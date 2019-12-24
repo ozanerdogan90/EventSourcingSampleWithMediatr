@@ -10,6 +10,10 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
         public TeamType Team { get; set; }
         public int PlayerNumber { get; set; }
         public DateTime ScoredAt { get; set; } = DateTime.UtcNow;
+        public ScoreGoal()
+        {
+
+        }
 
         public ScoreGoal(Guid gameId, TeamType team, int playerNumber)
         {
