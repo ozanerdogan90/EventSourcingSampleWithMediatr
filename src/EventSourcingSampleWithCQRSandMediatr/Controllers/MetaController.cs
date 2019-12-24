@@ -6,7 +6,6 @@ namespace EventSourcingSampleWithCQRSandMediatr.Controllers
 
     [ApiController]
     [ApiExplorerSettings(IgnoreApi = true)]
-    [AllowAnonymous]
     public class MetaController : ControllerBase
     {
         [HttpGet]

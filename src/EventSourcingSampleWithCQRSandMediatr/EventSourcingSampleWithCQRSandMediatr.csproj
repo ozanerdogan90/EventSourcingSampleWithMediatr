@@ -33,6 +33,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventSourcingSampleWithCQRSandMediatr.Contracts\EventSourcingSampleWithCQRSandMediatr.Contracts.csproj" />
+    <ProjectReference Include="..\EventSourcingSampleWithCQRSandMediatr.Domain\EventSourcingSampleWithCQRSandMediatr.Domain.csproj" />
+  </ItemGroup>
+
   <ItemGroup>
     <Content Update="appsettings.Development.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

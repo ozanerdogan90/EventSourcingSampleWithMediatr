@@ -1,9 +1,10 @@
 ﻿using EventSourcingSampleWithCQRSandMediatr.Contracts.ValueObjects;
+using EventSourcingSampleWithCQRSandMediatr.Domain.Commands;
 using System;
 
 namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
 {
-    public class Faul
+    public class Faul : ICommand
     {
         public Guid GameId { get; set; }
         public TeamType Team { get; set; }

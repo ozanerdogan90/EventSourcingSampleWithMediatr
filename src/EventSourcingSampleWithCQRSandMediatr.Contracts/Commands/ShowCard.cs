@@ -1,11 +1,12 @@
 ﻿using EventSourcingSampleWithCQRSandMediatr.Contracts.ValueObjects;
+using EventSourcingSampleWithCQRSandMediatr.Domain.Commands;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
 {
-    public class ShowCard
+    public class ShowCard : ICommand
     {
         public Guid GameId { get; set; }
         public TeamType Team { get; set; }
