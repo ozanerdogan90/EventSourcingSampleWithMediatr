@@ -27,7 +27,7 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
     {
         public FaulValidator()
         {
-            RuleFor(x => x.GameId).Must(y => y != null && y != Guid.Empty);
+            RuleFor(x => x.GameId).NotEmpty();
             RuleFor(x => x.PlayerNumber).NotEmpty();
         }
     }

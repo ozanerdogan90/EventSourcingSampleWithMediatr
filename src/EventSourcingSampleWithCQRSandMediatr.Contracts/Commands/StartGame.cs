@@ -23,7 +23,7 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
     {
         public StartGameValidator()
         {
-            RuleFor(x => x.GameId).Must(y => y != null && y != Guid.Empty);
+            RuleFor(x => x.GameId).NotEmpty();
         }
     }
 }

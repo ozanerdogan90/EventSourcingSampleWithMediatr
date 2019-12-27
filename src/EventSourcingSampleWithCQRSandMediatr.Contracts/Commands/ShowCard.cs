@@ -29,7 +29,7 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
     {
         public ShowCardValidator()
         {
-            RuleFor(x => x.GameId).Must(y => y != null && y != Guid.Empty);
+            RuleFor(x => x.GameId).NotEmpty();
             RuleFor(x => x.PlayerNumber).NotEmpty();
         }
     }

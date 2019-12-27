@@ -5,7 +5,6 @@ using EventSourcingSampleWithCQRSandMediatr.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,16 +20,16 @@ namespace EventSourcingSampleWithCQRSandMediatr.Clients.Queries
             this.gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
         }
 
-        private async Task ValidateGame(Guid gameId)
+        private async Task<bool> DoesGameExist(Guid gameId)
         {
-            var doesGameExist = await this.gameRepository.DoesGameExist(gameId);
-            if (!doesGameExist)
-                throw new Exception($"Game with id:{gameId} doesnt exist");
+            return await this.gameRepository.DoesGameExist(gameId);
         }
 
         public async Task<GameDetails> Handle(GetDetailedGame request, CancellationToken cancellationToken)
         {
-            await ValidateGame(request.GameId);
+            var doesGameExist = await DoesGameExist(request.GameId);
+            if (!doesGameExist)
+                return default;
             var scores = await this.gameRepository.GetScores(request.GameId);
             var faules = await this.gameRepository.GetFauls(request.GameId);
             var cards = await this.gameRepository.GetCards(request.GameId);
@@ -52,7 +51,10 @@ namespace EventSourcingSampleWithCQRSandMediatr.Clients.Queries
 
         public async Task<ScoreBoard> Handle(GetScoreBoard request, CancellationToken cancellationToken)
         {
-            await ValidateGame(request.GameId);
+            var doesGameExist = await DoesGameExist(request.GameId);
+            if (!doesGameExist)
+                return default;
+
             var scores = await this.gameRepository.GetScores(request.GameId);
             var homeScores = scores.Where(x => x.Team == TeamType.Home).Count();
             var awayScores = scores.Where(x => x.Team == TeamType.Away).Count();

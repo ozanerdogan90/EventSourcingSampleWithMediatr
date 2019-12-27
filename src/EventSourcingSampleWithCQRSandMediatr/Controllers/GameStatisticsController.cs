@@ -12,27 +12,20 @@ using System.Threading.Tasks;
 namespace EventSourcingSampleWithCQRSandMediatr.Controllers
 {
     [ApiController]
-    [Route("games")]
-    public class GameController : ControllerBase
+    [Route("games/{id}/statistics")]
+    public class GameStatisticsController : ControllerBase
     {
         private readonly ICommandBus commandBus;
         private readonly IQueryBus queryBus;
-        public GameController(ICommandBus commandBus, IQueryBus queryBus)
+        public GameStatisticsController(ICommandBus commandBus, IQueryBus queryBus)
         {
             this.commandBus = commandBus ?? throw new ArgumentNullException(nameof(commandBus));
             this.queryBus = queryBus ?? throw new ArgumentNullException(nameof(queryBus));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateGame([BindRequired, FromBody]CreateGame command)
-        {
-            await this.commandBus.Send(command);
-            return Created("games", command.Id);
-        }
-
         [HttpPut]
-        [Route("{id}/start")]
-        public async Task<IActionResult> StartGame([NotEmptyGuid, FromRoute]Guid id, [BindRequired, FromBody]StartGame command)
+        [Route("faul")]
+        public async Task<IActionResult> AddFaul([NotEmptyGuid, FromRoute]Guid id, [BindRequired, FromBody]Faul command)
         {
             command.GameId = id;
             await this.commandBus.Send(command);
@@ -40,8 +33,17 @@ namespace EventSourcingSampleWithCQRSandMediatr.Controllers
         }
 
         [HttpPut]
-        [Route("{id}/end")]
-        public async Task<IActionResult> EndGame([NotEmptyGuid, FromRoute]Guid id, [BindRequired, FromBody]EndGame command)
+        [Route("card")]
+        public async Task<IActionResult> ShowCard([NotEmptyGuid, FromRoute]Guid id, [BindRequired, FromBody]ShowCard command)
+        {
+            command.GameId = id;
+            await this.commandBus.Send(command);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("score")]
+        public async Task<IActionResult> ScoreGoal([NotEmptyGuid, FromRoute]Guid id, [BindRequired, FromBody]ScoreGoal command)
         {
             command.GameId = id;
             await this.commandBus.Send(command);
@@ -49,15 +51,13 @@ namespace EventSourcingSampleWithCQRSandMediatr.Controllers
         }
 
         [HttpGet]
-        [Route("{id}/score-board")]
-        public async Task<IActionResult> GetScoreBoard([NotEmptyGuid, FromRoute]Guid id)
+        public async Task<IActionResult> GetGameDetails([NotEmptyGuid, FromRoute]Guid id)
         {
-            var results = await this.queryBus.Send<GetScoreBoard, ScoreBoard>(new GetScoreBoard(id));
+            var results = await this.queryBus.Send<GetDetailedGame, GameDetails>(new GetDetailedGame(id));
             if (results == default)
                 return NotFound();
 
             return Ok(results);
         }
-
     }
 }
