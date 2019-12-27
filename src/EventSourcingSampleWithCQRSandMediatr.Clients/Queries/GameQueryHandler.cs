@@ -35,9 +35,9 @@ namespace EventSourcingSampleWithCQRSandMediatr.Clients.Queries
             var cards = await this.gameRepository.GetCards(request.GameId);
 
             var statistics = new List<Statistics>();
-            statistics.AddRange(faules.Select(x => new Statistics() { Type = x.GetType().Name, Team = x.Team, ActionBy = x.PlayerNumber.ToString() }));
-            statistics.AddRange(scores.Select(x => new Statistics() { Type = x.GetType().Name, Team = x.Team, ActionBy = x.PlayerNumber.ToString() }));
-            statistics.AddRange(faules.Select(x => new Statistics() { Type = x.GetType().Name, Team = x.Team, ActionBy = x.PlayerNumber.ToString() }));
+            statistics.AddRange(faules.Select(x => new Statistics() { Type = x.GetType().Name, Team = x.Team, ActionBy = x.PlayerNumber.ToString(), ActionAt = x.FauledAt }));
+            statistics.AddRange(scores.Select(x => new Statistics() { Type = x.GetType().Name, Team = x.Team, ActionBy = x.PlayerNumber.ToString(), ActionAt = x.ScoredAt }));
+            statistics.AddRange(cards.Select(x => new Statistics() { Type = x.GetType().Name, Team = x.Team, ActionBy = x.PlayerNumber.ToString(), ActionAt = x.ShowedCartAt }));
 
             return new GameDetails()
             {

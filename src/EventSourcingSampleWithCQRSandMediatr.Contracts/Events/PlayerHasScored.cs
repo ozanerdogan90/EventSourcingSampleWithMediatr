@@ -1,10 +1,11 @@
 ﻿using EventSourcingSampleWithCQRSandMediatr.Contracts.ValueObjects;
+using EventSourcingSampleWithCQRSandMediatr.Domain.Events;
 using System;
 
 namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Events
 {
 
-    public class PlayerHasScored
+    public class PlayerHasScored : IEvent
     {
         public Guid GameId { get; set; }
         public TeamType Team { get; set; }

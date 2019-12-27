@@ -61,7 +61,7 @@ namespace EventSourcingSampleWithCQRSandMediatr.Clients.Handlers
             if (!isSuccesful)
                 throw new Exception($"Score with gameid :{request.GameId} couldnt be added");
 
-            await this.eventBus.Publish(new PlayerHasFauled(request.GameId, request.Team, request.PlayerNumber));
+            await this.eventBus.Publish(new PlayerHasScored(request.GameId, request.Team, request.PlayerNumber));
             return Unit.Value;
         }
     }

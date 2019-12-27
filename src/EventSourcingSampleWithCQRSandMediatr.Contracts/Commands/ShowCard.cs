@@ -12,7 +12,7 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
         public Guid GameId { get; set; }
         public TeamType Team { get; set; }
         public int PlayerNumber { get; set; }
-        public DateTime FaulAt { get; set; } = DateTime.UtcNow;
+        public DateTime CardAt { get; set; } = DateTime.UtcNow;
         public ShowCard()
         {
 
