@@ -29,7 +29,16 @@ namespace EventSourcingSampleWithCQRSandMediatr.Controllers
             return Created("games", command.Id);
         }
 
-        [HttpPost]
+        [HttpPut]
+        [Route("{id}/start")]
+        public async Task<IActionResult> StartGame([BindRequired, FromQuery]Guid id, [BindRequired, FromBody]StartGame command)
+        {
+            command.GameId = id;
+            await this.commandBus.Send(command);
+            return Ok();
+        }
+
+        [HttpPut]
         [Route("{id}/end")]
         public async Task<IActionResult> EndGame([BindRequired, FromQuery]Guid id, [BindRequired, FromBody]EndGame command)
         {

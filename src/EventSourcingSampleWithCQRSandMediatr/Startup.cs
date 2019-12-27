@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using EventSourcingSampleWithCQRSandMediatr.Filters;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Hosting;
 using EventSourcingSampleWithCQRSandMediatr.Persistence.Models;
 using EventSourcingSampleWithCQRSandMediatr.Persistence;
 using EventSourcingSampleWithCQRSandMediatr.Clients;
+using EventSourcingSampleWithCQRSandMediatr.Contracts;
 
 namespace EventSourcingSampleWithCQRSandMediatr
 {
@@ -43,7 +42,7 @@ namespace EventSourcingSampleWithCQRSandMediatr
             {
                 options.Filters.Add(new ApiLoggingFilter());
                 options.Filters.Add(typeof(CustomExceptionFilter));
-            });
+            }).AddContractValidators();
         }
 
 

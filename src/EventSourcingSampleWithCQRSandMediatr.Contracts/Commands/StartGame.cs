@@ -1,4 +1,5 @@
 ﻿using EventSourcingSampleWithCQRSandMediatr.Domain.Commands;
+using FluentValidation;
 using System;
 
 namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
@@ -15,6 +16,14 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
         public StartGame(Guid gameId)
         {
             GameId = gameId;
+        }
+    }
+
+    public class StartGameValidator : AbstractValidator<StartGame>
+    {
+        public StartGameValidator()
+        {
+            RuleFor(x => x.GameId).Must(y => y != null && y != Guid.Empty);
         }
     }
 }

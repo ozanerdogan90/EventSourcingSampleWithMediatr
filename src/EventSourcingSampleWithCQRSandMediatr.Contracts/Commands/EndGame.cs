@@ -1,4 +1,5 @@
 ﻿using EventSourcingSampleWithCQRSandMediatr.Domain.Commands;
+using FluentValidation;
 using System;
 
 namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
@@ -15,6 +16,14 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
         public EndGame(Guid gameId)
         {
             GameId = gameId;
+        }
+    }
+
+    public class EndGameValidator : AbstractValidator<EndGame>
+    {
+        public EndGameValidator()
+        {
+            RuleFor(x => x.GameId).Must(y => y != null && y != Guid.Empty);
         }
     }
 }

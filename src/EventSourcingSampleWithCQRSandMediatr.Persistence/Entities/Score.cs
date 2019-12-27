@@ -1,5 +1,6 @@
 ﻿using EventSourcingSampleWithCQRSandMediatr.Contracts.ValueObjects;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventSourcingSampleWithCQRSandMediatr.Persistence.Entities

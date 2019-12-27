@@ -1,5 +1,6 @@
 ﻿using EventSourcingSampleWithCQRSandMediatr.Contracts.ValueObjects;
 using EventSourcingSampleWithCQRSandMediatr.Domain.Commands;
+using FluentValidation;
 using System;
 
 namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
@@ -19,6 +20,15 @@ namespace EventSourcingSampleWithCQRSandMediatr.Contracts.Commands
             GameId = gameId;
             Team = teamType;
             PlayerNumber = playerNumber;
+        }
+    }
+
+    public class FaulValidator : AbstractValidator<Faul>
+    {
+        public FaulValidator()
+        {
+            RuleFor(x => x.GameId).Must(y => y != null && y != Guid.Empty);
+            RuleFor(x => x.PlayerNumber).NotEmpty();
         }
     }
 }
