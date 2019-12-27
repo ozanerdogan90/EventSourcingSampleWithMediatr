@@ -1,0 +1,28 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6-alpine
+    ports:
+      - 5432:5432
+    container_name: event-sourcing-db
+    volumes:
+      - "/var/run/postgres.sock:/var/run/postgres/postgres.sock"
+      - "/home/myuser/docker-apps/volumes/postgres-data:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'Clay'
+      POSTGRES_INITDB_ARGS: '--encoding=UTF8'
+  api:
+    build:
+      context: ./src/EventSourcingSampleWithCQRSandMediatr
+    container_name: event-sourcing-sample
+    restart: on-failure
+    ports:
+      - 5001:5001
+    environment:
+      Db__ConnectionString: 'User ID=postgres;host=db;Port=5432;Database=event-sourcing-database;Integrated Security=true;Pooling=true;password=postgres'
+      Db__UseMemoryDb: 'false'
+    depends_on:
+      - db
+
