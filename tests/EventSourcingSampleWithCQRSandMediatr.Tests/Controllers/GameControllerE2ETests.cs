@@ -185,7 +185,7 @@ namespace EventSourcingSampleWithCQRSandMediatr.Tests.Controllers
         }
 
         [Fact]
-        public async Task CreateGame_InvalidPayload_ReturnsBadRequest()
+        public async Task AllFlow_Success_ReturnsDetails()
         {
             var createGameResponse = await CreateGame();
             var gameIdString = await createGameResponse.Content.ReadAsStringAsync();
