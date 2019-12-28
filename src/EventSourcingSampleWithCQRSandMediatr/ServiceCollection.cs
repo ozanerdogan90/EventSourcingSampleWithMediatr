@@ -1,4 +1,3 @@
-using AutoMapper;
 using CorrelationId;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
