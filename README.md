@@ -4,8 +4,9 @@
 
 ## Description
 This project aims to be an example of event sourcing in .net core. 
+
 Case Study:
-Most common sample of event sourcing is bank account transactions. But in this sample I used a football match; 
+Most common sample of event sourcing is bank account transactions. But in this sample I used a football game as a domain; 
 - Create a match (requires information like home and away teams info )
 - Start the match (requires game id )
 - Add score for one team
@@ -14,7 +15,9 @@ Most common sample of event sourcing is bank account transactions. But in this s
 - Get score board
 - Get game details
 
-All the data is storaged in different tables in postgreSql database. Event sourcing is handled with cqrs and mediatr patterns.No external tool is used and Marten is planned to use in future
+All the data is storaged in relevant individual tables in postgreSql database. Event sourcing is handled with cqrs and mediatr patterns.No external tool is used and Marten is planned to use in future
+
+There is a e2e test that covers all the flow .It can be found [here](https://github.com/ozanerdogan90/EventSourcingSampleWithMediatr/blob/master/tests/EventSourcingSampleWithCQRSandMediatr.Tests/Controllers/GameControllerE2ETests.cs)
 
 ## Requirements
 - .Net Core >= 3.0
