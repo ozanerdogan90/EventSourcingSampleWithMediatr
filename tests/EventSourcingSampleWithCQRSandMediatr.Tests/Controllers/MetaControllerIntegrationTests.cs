@@ -31,5 +31,13 @@ namespace EventSourcingSampleWithCQRSandMediatr.Tests.Controllers
             var response = await client.GetAsync("/liveness");
             response.Headers.Any(x => x.Key == "X-Correlation-ID").Should().BeTrue();
         }
+
+        [Fact]
+        public async Task MetricCalls_Success_ReturnsOk()
+        {
+            var client = factory.CreateClient();
+            var response = await client.GetAsync("/metrics");
+            response.IsSuccessStatusCode.Should().BeTrue();
+        }
     }
 }
